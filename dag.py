@@ -3,7 +3,7 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 
-from .parsers import rss, parse_page
+from parsers import rss, parse_page
 
 
 default_args = {
