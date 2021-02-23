@@ -21,6 +21,7 @@ default_args = {
 with DAG(
     'Zakupki.gov',
     default_args=default_args,
+    schedule_interval='*/5 * * * *',
     description="Get tenders data from Zakupki.gov",
     schedule_interval=timedelta(days=1)
 ) as dag:
