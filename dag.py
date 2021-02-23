@@ -21,11 +21,8 @@ default_args = {
 with DAG(
     'Zakupki.gov',
     default_args=default_args,
-    max_active_runs=1,
-    concurrency=4,
-    schedule_interval='*/10 * * * *', #..every 10 minutes
     description="Get tenders data from Zakupki.gov",
-    schedule_interval=timedelta(days=1)
+    schedule_interval=timedelta(minutes=5)
 ) as dag:
     run_rss = PythonOperator(
         task_id="Get_rss",
