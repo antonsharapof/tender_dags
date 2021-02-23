@@ -14,7 +14,7 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=25),
+    'retry_delay': timedelta(minutes=5),
 }
 
 
@@ -22,7 +22,7 @@ with DAG(
     'Zakupki.gov',
     default_args=default_args,
     description="Get tenders data from Zakupki.gov",
-    schedule_interval=timedelta(minutes=5)
+    schedule_interval=timedelta(minutes=25)
 ) as dag:
     run_rss = PythonOperator(
         task_id="Get_rss",
