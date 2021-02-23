@@ -54,6 +54,7 @@ def start_parse():
     for l in links:
         driver.get(l)
         data = get_data(driver)
+        collection.delete_many({'tender_number': data['tender_number']})
         collection.insert_one(data).inserted_id
     return True
 
