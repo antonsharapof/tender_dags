@@ -14,17 +14,8 @@ def get_from_rss():
     for entry in entries:
         number = entry.title.split('№')[-1]
         link = entry.link
-        try:
-            posted = datetime.strptime(entry.summary.split('<br />')[-5].split('</strong>')[-1], date_format)
-        except:
-            posted = datetime.strptime('01.01.1970', date_format)
-        try:
-            updated = datetime.strptime(entry.summary.split('<br />')[-4].split('</strong>')[-1], date_format)
-        except:
-            posted = datetime.strptime('01.01.1970', date_format)
-        status = entry.summary.split('<br />')[-3].split('</strong>')[-1]
         act = entry.summary.split('<br />')[7].split('</strong>')[-1]
-        d = (number, link, posted, updated, status, act)
+        d = (number, link, act)
         data.append(d)
     return data
 
@@ -32,7 +23,7 @@ async def load_to_db(data):
     """Загружает данные из RSS в БД
     """
     conn = await asyncpg.connect('postgresql://postgres:1488@127.0.0.1:5432/tender_db')
-    await conn.executemany('''SELECT load_to_rss($1, $2, $3, $4, $5, $6)''', data)
+    await conn.executemany('''SELECT load_to_rss($1, $2, $3)''', data)
     await conn.close()
 
 def start_parse():
